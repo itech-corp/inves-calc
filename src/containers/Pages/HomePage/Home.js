@@ -5,6 +5,7 @@ import "./Home.css";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCheckCircle, faTimesCircle, faUser} from "@fortawesome/free-solid-svg-icons";
 import Footer from '../../../components/Footer/Footer';
+import { Link } from 'react-router-dom';
 
 
 
@@ -28,39 +29,39 @@ export class Home extends Component {
                                 <h2 className="text-light text-center ">
                                     I am
                                 </h2>
-                                <a href="/login">
+                                <Link to="/login">
                                     <div className="mt-5 section-btn bg-success">
                                         <p className="home-btn-text text-light">A Liyeplimal<br/>Customer</p>
                                         <div className="v-line  position-relative"></div>
                                         <div className="hr-line  position-relative"></div>
                                         <div className="check-icon"><FontAwesomeIcon size="2x" color="white" icon={faCheckCircle}  /> </div>
                                     </div>
-                                </a>
+                                </Link>
                               </Col>
                               <Col className="mt-5 section-1" xs={{size:3,offset:1}}>
                                 <h2 className="text-light text-center ">
                                     I am
                                 </h2>
-                                <a href="/home">
+                                <Link to="/home">
                                     <div className="mt-5 section-btn bg-danger">
                                         <p className="home-btn-text text-light">Not a Liyeplimal<br/>Customer</p>
                                         <div className="v-line  position-relative"></div>
                                         <div className="hr-line  position-relative"></div>
                                         <div className="check-icon"><FontAwesomeIcon size="2x" color="white" icon={faTimesCircle}  /> </div>
                                     </div>
-                                </a>
+                                </Link>
                               </Col>
                               <Col className="mt-5 section-1" xs={{size:3,offset:1}}>
                                 <h2 className="text-light text-center ">
                                     I am
                                 </h2>
-                                <a href="/login">
+                                <Link to="/login">
                                     <div style={{backgroundColor:'#f5a10e'}} className="mt-5 section-btn">
                                         <p className="home-btn-text text-light">Continue as<br/>guest</p>
                                         <div className="v-line  position-relative"></div>
                                         <div className="user-icon"><FontAwesomeIcon size="2x" color="white" icon={faUser} /></div>
                                     </div>
-                                </a>
+                                </Link>
                               </Col>
                               
                            </Row>
