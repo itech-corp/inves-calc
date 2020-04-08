@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import AppBar from '../../../components/AppBar/AppBar'
 import { Badge, Jumbotron, Container, Row, Col, InputGroup, InputGroupAddon, Form, InputGroupText, Input, Button, Label, FormGroup } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronLeft, faChevronRight, faWallet, faDollarSign, faList, faCalendar } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faChevronRight, faWallet, faDollarSign, faList, faCalendar, faBox } from '@fortawesome/free-solid-svg-icons'
 import ResultCard from "../../../components/UI/ResultCard"
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
@@ -128,7 +128,7 @@ class CalculationPage extends Component {
                         <div>
                             <Form onSubmit={this.clickHandler}>
                                 <Row>
-                                    <Col xs={6}>
+                                    <Col xs={{size:9}} pull={4} className="align-self-start w-50">
                                         <InputGroup size='sm outline-0'>
                                             <InputGroupAddon addonType="prepend">
                                                 <InputGroupText style={{ border: '0' }} className="user-input bg-dark" >
@@ -140,7 +140,7 @@ class CalculationPage extends Component {
                                             </Input>
                                         </InputGroup>
                                     </Col>
-                                    <Col className="mt-4" xs={6}>
+                                    <Col className="mt-4" xs={{size:9}}>
                                         <InputGroup size='sm outline-0'>
                                             <InputGroupAddon addonType="prepend">
                                                 <InputGroupText style={{ border: '0' }} className="user-input bg-dark" >
@@ -152,7 +152,7 @@ class CalculationPage extends Component {
                                             </Input>
                                         </InputGroup>
                                     </Col>
-                                    <Col className="mt-4" xs={6}>
+                                    <Col className="mt-4" xs={{size:9}}>
                                         <InputGroup size='sm outline-0'>
                                             <InputGroupAddon addonType="prepend">
                                                 <InputGroupText style={{ border: '0' }} className="user-input bg-dark" >
@@ -174,30 +174,54 @@ class CalculationPage extends Component {
                     </Col>
                     <Col xs={1}><div className="paye-v-line float-left"></div></Col>
                     <Col xs={7}>
-                        {result.length > 0 ?
-                            <div className="bg-white rounded-lg p-5">
-                                <Row>
-                                    {result}
-                                </Row>
-                                <Row>
-                                    <Col className="float-left" xs={10}>
-                                        <br />
-                                        <h5 className=" float-left">Balance after 8 weeks of continuous investment : <span className=" text-success" >$24.84</span></h5>
-                                    </Col>
-                                    <Col xs={{ size: 3, offset: 8 }}>
-                                        <nav className="float-end" aria-label="Page navigation example">
-                                            <ul className="pagination">
-                                                <li className="bg-warning page-item" onClick={this.previousPageHandler}><a className="bg-warning text-light page-link d-inline-flex align-items-end"><FontAwesomeIcon icon={faChevronLeft} /><FontAwesomeIcon icon={faChevronLeft} /><span className="ml-2">Prev</span></a></li>
-                                                <li className="page-item border-0"><a style={{ backgroundColor: '#e9ecef', color: 'black' }} className=" page-link">1</a></li>
-                                                <li className="page-item"><a style={{ backgroundColor: '#e9ecef' }} className="text-secondary page-link">2</a></li>
-                                                <li className="page-item"><a style={{ backgroundColor: '#e9ecef' }} className="text-secondary page-link">3</a></li>
-                                                <li className="page-item" onClick={this.nextPageHandler}><a className="bg-primary text-light page-link d-inline-flex align-items-end"><span className="mr-2">Next</span><FontAwesomeIcon icon={faChevronRight} /><FontAwesomeIcon icon={faChevronRight} /></a></li>
-                                            </ul>
-                                        </nav>
-                                    </Col>
-                                </Row>
+                        {//result.length > 0 ?
+                            <div>
+                                <div style={{fontFamily: 'Bahnschrift'}} className="bg-white rounded-lg  pt-4 pb-3 mb-3">
+                                    <Row>
+                                        <Col xs={3} className="text-left ml-4 ">
+                                            <h4>Diamond Plan 🥇 </h4>
+                                            <h6>Code: CERT8085E</h6>
+                                        </Col>
+                                        <Col xs={3} className="float-left ">
+                                            <Row>
+                                                <Col className="mb-1" xs={12}>
+                                                    <FontAwesomeIcon color="#F5A10E" icon={faBox}/> Your selected package $100
+                                                </Col>
+                                                <Col xs={12}>
+                                                    <FontAwesomeIcon color="#F5A10E" icon={faCalendar}/> Duration Selected : 5 Years
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                        <Col xs={{size:3, offset:2}} className="float-left ">
+                                           <FontAwesomeIcon icon={faList} color="#F5A10E"/> Reinvestment Type : Yearly
+                                        </Col>
+                                    </Row>
+                                </div>
+                                <div className="bg-white rounded-lg pl-5 pr-5 pb-5">
+                                    <Row>
+                                        {result}
+                                    </Row>
+                                    <Row>
+                                        <Col className="float-left" xs={10}>
+                                            <br />
+                                            <h5 className=" float-left">Balance after 8 weeks of continuous investment : <span className=" text-success" >$24.84</span></h5>
+                                        </Col>
+                                        <Col xs={{ size: 3, offset: 8 }}>
+                                            <nav className="float-end" aria-label="Page navigation example">
+                                                <ul className="pagination">
+                                                    <li className="bg-warning page-item" onClick={this.previousPageHandler}><a className="bg-warning text-light page-link d-inline-flex align-items-end"><FontAwesomeIcon icon={faChevronLeft} /><FontAwesomeIcon icon={faChevronLeft} /><span className="ml-2">Prev</span></a></li>
+                                                    <li className="page-item border-0"><a style={{ backgroundColor: '#e9ecef', color: 'black' }} className=" page-link">1</a></li>
+                                                    <li className="page-item"><a style={{ backgroundColor: '#e9ecef' }} className="text-secondary page-link">2</a></li>
+                                                    <li className="page-item"><a style={{ backgroundColor: '#e9ecef' }} className="text-secondary page-link">3</a></li>
+                                                    <li className="page-item" onClick={this.nextPageHandler}><a className="bg-primary text-light page-link d-inline-flex align-items-end"><span className="mr-2">Next</span><FontAwesomeIcon icon={faChevronRight} /><FontAwesomeIcon icon={faChevronRight} /></a></li>
+                                                </ul>
+                                            </nav>
+                                        </Col>
+                                    </Row>
+                                </div>
                             </div>
-                            : ''}
+                          //  : ''
+                        }
                     </Col>
                 </Row>
 
