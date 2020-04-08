@@ -11,3 +11,8 @@ export {
     setPaymentLink,
     getPaymentLink
 } from './payement';
+
+export {
+    makeCalculation,
+    getCalculate
+} from './calculation';

@@ -19,6 +19,7 @@ class Layout extends Component {
                     <Route path="/subscrib" component={SubscribPage} />
                     <Route path="/payement" component={PayementPage} />
                     <Route path="/deposit" component={DepositSuccess} />
+                    <Route path="/simulator" component={CalculationPage} />
                     <Route path="/" component={Home} />
                 </Switch>
             </div>

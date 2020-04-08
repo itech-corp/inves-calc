@@ -10,13 +10,15 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import authReducer from './store/reducers/auth';
 import payementReducer from './store/reducers/payement';
+import calculationReducer from './store/reducers/calculation';
 
 import './index.css';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
     auth: authReducer,
-    payement:payementReducer
+    payement:payementReducer,
+    calculation:calculationReducer
 })
 
 const store = createStore(rootReducer, composeEnhancers(

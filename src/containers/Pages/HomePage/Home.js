@@ -6,6 +6,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCheckCircle, faTimesCircle, faUser} from "@fortawesome/free-solid-svg-icons";
 import Footer from '../../../components/Footer/Footer';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions/index';
 
 
 
@@ -42,7 +44,7 @@ export class Home extends Component {
                                 <h2 className="text-light text-center ">
                                     I am
                                 </h2>
-                                <Link to="/home">
+                                <Link onClick={()=>this.props.logout} to="/home">
                                     <div className="mt-5 section-btn bg-danger">
                                         <p className="home-btn-text text-light">Not a Liyeplimal<br/>Customer</p>
                                         <div className="v-line  position-relative"></div>
@@ -75,4 +77,19 @@ export class Home extends Component {
     }
 }
 
-export default Home
+const mapStateToProps = state => {
+    return{
+       token:state.auth.token,
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/login')),
+        getPaymentLink: (link) => dispatch(actions.getPaymentLink(link)),
+        logout: ()=> dispatch(actions.logOut)
+        
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

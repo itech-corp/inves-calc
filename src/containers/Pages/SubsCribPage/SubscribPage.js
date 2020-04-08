@@ -16,7 +16,7 @@ class SubscribPage extends Component {
 
     clickHandler = (e, link) => {
         e.preventDefault();
-        this.props.getPaymentLink(link);
+        this.props.getPaymentLink(link,this.props.token);
         this.props.history.push('/payement');
     }
 
@@ -99,7 +99,7 @@ class SubscribPage extends Component {
 
 const mapStateToProps = state => {
     return{
-       
+       token:state.auth.token,
     }
 };
 

@@ -33,11 +33,14 @@ export const logOut = () => {
 export const checkAuthTimeout = (expirationTime) => {
     return dispatch => {
         setTimeout(() => {
-            dispatch(logOut());
+           // dispatch(logOut());
         }, expirationTime * 1000);
     };
 };
 
+export const getToken = () => {
+    
+}
 
 export const auth = (authData, isSignup) => dispatch => {
     dispatch(authStart());
