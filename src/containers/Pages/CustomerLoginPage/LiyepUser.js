@@ -38,8 +38,6 @@ class LiyepUser extends Component {
         return (
             <div>
                 {authRedirect}
-                <AppBar />
-
                 <Container className="login-section mb-5" >
                     <Row className="">
                         <Col className="home-page mb-5" xs={6}>
@@ -94,7 +92,6 @@ class LiyepUser extends Component {
                         </Col>
                     </Row>
                 </Container>
-                <Footer />
             </div>
         )
     }

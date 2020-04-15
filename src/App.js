@@ -14,7 +14,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App vh-100">
 
         <Layout />
 

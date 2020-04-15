@@ -13,12 +13,13 @@ export default function ResultCard(props) {
     }
 
     return (
+       
         <Col className="mt-3" xs={3}>
             <div style={{ backgroundColor: invest ? '#73EFC2' : '#EFECEC', fontFamily: 'Bahnschrift' }} className="h-100 text-left p-2 rounded-sm font-weight-lighter">
                 <div style={{ backgroundColor: invest ? '#05C945' : '#F5A10E' }} className="py-1 pl-3 text-left w-100 rounded-sm d-flex align-items-center font-weight-bold"><FontAwesomeIcon size="2x" icon={faCalendar} className="pr-3" />Week {props.week}</div>
-                <div className="pt-2">Total Payout: ${props.payout}</div>
-                <div className="pt-2 text-truncate">Bal W{props.week}: <strong>${props.balw} + <span style={{ color: '#039B54' }}>${props.payout}</span></strong></div>
-                <div className="pt-2">Total Bal: <strong>${props.totBal}</strong></div>
+                <div className="pt-2 text-truncate"  >Total Payout: {props.payout.join(" + ")}</div>
+                <div className="pt-2 text-truncate">Bal W{props.week}: <strong>${props.balPrevW.toFixed(2)} + <span style={{ color: '#039B54' }}>${props.totPayout}</span></strong></div>
+                <div className="pt-2">Total Bal: <strong>${props.totBal.toFixed(2)}</strong></div>
                 <div className="pt-2">Invest: <strong>{investText}</strong> </div>
                 <div className="pt-2 pb-2">Rem: <strong style={{ color: '#039B54' }}>${props.rem}</strong></div>
                 <div style={{ backgroundColor: invest ? '#056424' : '#05C945' }} className="text-white rounded-sm py-1 pl-3 w-100 d-flex align-items-center">
@@ -27,7 +28,7 @@ export default function ResultCard(props) {
                 <hr />
                 <div>Total Packages:</div>
                 <div className="d-flex" style={{ overflowX: 'auto' }}>
-                    {props.activePacks.map(({ leftWeeks, amount }) =>
+                 {props.activePacks.map(({ leftWeeks, amount }) =>
                         <>
                             {leftWeeks > 0 ? <div className="position-relative pr-3">
                                 <FontAwesomeIcon className="" size="2x" color="#05C945" icon={faFolder} />

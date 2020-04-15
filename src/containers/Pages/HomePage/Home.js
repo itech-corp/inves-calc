@@ -1,77 +1,96 @@
-import React, { Component } from 'react';
-import AppBar from '../../../components/AppBar/AppBar';
-import { Container, Row, Col } from 'reactstrap';
-import "./Home.css";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCheckCircle, faTimesCircle, faUser} from "@fortawesome/free-solid-svg-icons";
-import Footer from '../../../components/Footer/Footer';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
+import AppBar from '../../../components/AppBar/AppBar'
+import { Container, Row, Col, Form, InputGroup, InputGroupAddon, InputGroupText, Input, Button, Label, FormGroup } from 'reactstrap';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faLock, faChevronRight, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import manMoney from '../../../assets/images/man-money.png';
+import Footer from '../../../components/Footer/Footer';
 
 
 
 export class Home extends Component {
+    state = {
+        form: {
+            email: '',
+            phone: ''
+        }
+    }
+
+    submitHandler = e => {
+        e.preventDefault();
+        this.props.onAuth(e.target, true);
+        console.log(this.props.isAuthenticated)
+    }
+
+    inputChangeHandler = (e, name) => {
+        this.setState({ [name]: e.target.value });
+    }
     render() {
         return (
-            <div>
-               <AppBar/>
-               <Container className="login-section">
-                   <Row className="">
-                       <Col className="home-page mb-5" xs={7}>
-                           <h4 className="text-left text-light">Want to know what you wil gain while investing <br/>in Liyeplimal ?</h4>
-                           <div className="inderline">
-                             <hr className="bg-secondary"/>
-                             <div className="dot-warning bg-warning rounded-circle position-relative"></div>
-                           </div>
-                       </Col>
-                       <Col xs={12}>
-                           <Row>
-                              <Col className="mt-5 section-1" xs={3 }>
-                                <h2 className="text-light text-center ">
-                                    I am
-                                </h2>
-                                <Link to="/login">
-                                    <div className="mt-5 section-btn bg-success">
-                                        <p className="home-btn-text text-light">A Liyeplimal<br/>Customer</p>
-                                        <div className="v-line  position-relative"></div>
-                                        <div className="hr-line  position-relative"></div>
-                                        <div className="check-icon"><FontAwesomeIcon size="2x" color="white" icon={faCheckCircle}  /> </div>
-                                    </div>
-                                </Link>
-                              </Col>
-                              <Col className="mt-5 section-1" xs={{size:3,offset:1}}>
-                                <h2 className="text-light text-center ">
-                                    I am
-                                </h2>
-                                <Link onClick={()=>this.props.logout} to="/home">
-                                    <div className="mt-5 section-btn bg-danger">
-                                        <p className="home-btn-text text-light">Not a Liyeplimal<br/>Customer</p>
-                                        <div className="v-line  position-relative"></div>
-                                        <div className="hr-line  position-relative"></div>
-                                        <div className="check-icon"><FontAwesomeIcon size="2x" color="white" icon={faTimesCircle}  /> </div>
-                                    </div>
-                                </Link>
-                              </Col>
-                              <Col className="mt-5 section-1" xs={{size:3,offset:1}}>
-                                <h2 className="text-light text-center ">
-                                    I am
-                                </h2>
-                                <Link to="/login">
-                                    <div style={{backgroundColor:'#f5a10e'}} className="mt-5 section-btn">
-                                        <p className="home-btn-text text-light">Continue as<br/>guest</p>
-                                        <div className="v-line  position-relative"></div>
-                                        <div className="user-icon"><FontAwesomeIcon size="2x" color="white" icon={faUser} /></div>
-                                    </div>
-                                </Link>
-                              </Col>
-                              
-                           </Row>
-                       </Col>
-                   </Row>
-               </Container>
-               <Footer />
-               
+            <div >
+               <Container style={{fontFamily:'Poppins'}} fluid  className=" login-section  mb-5" >
+                    <Row>
+                        <Col className="home-page mb-5 mt-4" xs={{size:4 ,offset:1}}>
+                            <h4 className="text-left text-light">Want to know what you wil gain while investing<br />in Liyeplimal ?</h4>
+                            <div className="inderline">
+                                <hr className="bg-secondary" />
+                                <div className="dot-warning bg-warning rounded-circle position-relative"></div>
+                            </div>
+                        </Col>
+                        <Col  xs={{size:10,offset:1}}>
+                            <Row>
+                                
+                                <Col   xs={3}>
+                                    <Col xs={12} className="mb-4  text-center">
+                                        <div >
+                                            <h4 className="text-light d-inline"><a style={{textDecoration:'none'}} className="text-light" href="/" >Get In </a></h4>
+                                            <div style={{fontSize:"30px"}} className="d-inline border-1 text-warning h-100 w-100">| </div>
+                                            <h4 className="text-secondary d-inline">Sign Up </h4>
+                                            
+                                        </div>
+                                    </Col>
+                                    <Col xs={12}>
+                                        <Form onSubmit={this.submitHandler} >
+                                            <FormGroup>
+                                                <InputGroup size='lg outline-0'>
+                                                    <InputGroupAddon addonType="prepend">
+                                                        <InputGroupText style={{ border: '1' }} className="user-input bg-transparent" ><FontAwesomeIcon color="#f5a10e" icon={faUser} /></InputGroupText>
+                                                    </InputGroupAddon>
+                                                    <Input onChange={(e) => this.inputChangeHandler(e, "email")} name="email" required className="text-light bg-transparent border-1 " placeholder="Liyeplimal ID" />
+                                                </InputGroup>
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <InputGroup className="text-left" size="lg">
+                                                    <InputGroupAddon addonType="prepend">
+                                                        <InputGroupText style={{ border: '1' }} className="bg-transparent"><FontAwesomeIcon color="#f5a10e" icon={faLock} /></InputGroupText>
+                                                    </InputGroupAddon>
+                                                    <Input onChange={(e) => this.inputChangeHandler(e, "phone")} name="phone" required type="password" className="bg-transparent border-1 text-light" placeholder="Password" />
+                                                </InputGroup>
+                                            </FormGroup>
+                                            <FormGroup className="ml-2 mb-5 mt-4">
+                                                <p className="text-light">Forgot password ? <stong className="text-warning">reset here</stong></p>
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Button style={{ backgroundColor: "#f5a10e" }} className="float-left" size=" w-100 h-50">
+                                                    <h5 >Sign In <FontAwesomeIcon icon={faSignInAlt} /></h5>
+                                                </Button>
+                                            </FormGroup>
+                                        </Form>
+                                    </Col>
+
+                                </Col>
+
+                                <Col xs={{size:5,offset:4}}>
+                                    <img className="ml-5 float-right img-fluid" alt="mancompute" src={manMoney} />
+                                </Col>
+                            </Row>
+
+                        </Col>
+                    </Row>\
+                </Container>
             </div>
         )
     }

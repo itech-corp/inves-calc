@@ -7,6 +7,8 @@ import manpaye from '../../../assets/images/man-paye.png';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 
+import './PayementPage.css';
+
 class PayementPage extends Component {
 
     state = {
@@ -95,32 +97,6 @@ class PayementPage extends Component {
         }
         return (
             <div>
-                <style>
-                    {
-                        `
-                        .dot-warning{
-                            height: 10px;
-                            width: 10px;
-                            top:-21px;
-                            left: 80px;
-                        }
-                        .paye-v-line{
-                            font-family: 'Montserrat', sans-serif;
-                            height: 500px;
-                            width: 1px;
-                            background-color: rgba(243, 243, 243, 0.658)!important;
-                            margin-left:190px;
-                        }
-                        .mancompute {
-                            margin-left:100px!important;
-                        }
-                        .payement-checkbox{
-                            margin-left:14px
-                        }
-                        `
-                    }
-                </style>
-                <AppBar />
                 <Container>
                     <Row>
                         <Col xs={1}>

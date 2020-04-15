@@ -12,6 +12,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import { Redirect } from 'react-router-dom';
 
+import './SubscribPage.css';
+
 class SubscribPage extends Component {
 
     clickHandler = (e, link) => {
@@ -34,30 +36,6 @@ class SubscribPage extends Component {
             
             <div>
                 {authRedirect}
-                <style>
-                    {
-                        `
-                        .dot-warning{
-                            height: 10px;
-                            width: 10px;
-                            top:-21px;
-                            left: 80px;
-                        }
-                        .subs-v-line{
-                            font-family: 'Montserrat', sans-serif;
-                            height: 500px;
-                            width: 1px;
-                            background-color: rgba(243, 243, 243, 0.658)!important;
-                        }
-                        
-                        .plan-1{
-                            margin-top:50px;
-                        }
-                        
-                        `
-                    }
-                </style>
-                <AppBar />
                 <Container className="mb-5">
                     <Row>
                         <Col xs={1}>
@@ -91,7 +69,6 @@ class SubscribPage extends Component {
                         </Col>
                     </Row>
                 </Container>
-                <Footer />
             </div>
         )
     }
