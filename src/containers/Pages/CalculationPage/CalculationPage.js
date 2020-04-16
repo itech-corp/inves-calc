@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import Footer from '../../../components/Footer/Footer';
 
+
 import './CalculationPage.css';
 
 class CalculationPage extends Component {
@@ -16,20 +17,32 @@ class CalculationPage extends Component {
         packs: [],
         periods: [],
         durations: [],
+        pageFirst:1,
+        pageSecond:2,
+        pageLast:3,
         name: null,
         result: [],
         page: 1,
-
+        newPeriods:[],
         pack: null,
         duration: null,
         period: null,
         packageAmount: null,
         resultHead: '',
-        simulation: ''
+        simulation: '',
+        points:0,
+        selectedDuration:'none',
+        selectedPeriod:'none',
+        selectedReinvestment:'',
+        selectedPack:'none'
     }
 
     componentDidMount() {
-        this.props.getCalculate();
+       
+            console.log("component did mount")
+             this.props.getCalculate();
+       
+       
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -58,46 +71,78 @@ class CalculationPage extends Component {
 
             });
             //result.unshift 
-            resultHead = (<Row className="justify-content-between text-left">
-                <Col xs={3} className="ml-4 ">
-                    <h4>{plan.name} 🥇 </h4>
-                    <h6>Code: CERT8085E</h6>
-                </Col>
-                <Col xs={4}>
-                    <Row>
-                        <Col className="mb-1" xs={12}>
-                            <FontAwesomeIcon color="#F5A10E" icon={faBox} /> Your selected package ${pack.name}
-                        </Col>
-                        <Col xs={12}>
-                            <FontAwesomeIcon color="#F5A10E" icon={faCalendar} /> Duration Selected : {duration / 52} Years
-                        </Col>
-                    </Row>
-                </Col>
-                <Col className="mb-3" xs={{ size: 4 }} >
-                    <div>
-                        <FontAwesomeIcon icon={faList} color="#F5A10E" /> Reinvestment Type : {reinvestType}
-                    </div>
-
-                    <div>
-                        <FontAwesomeIcon icon={faClock} color="#F5A10E" /> Calculation Left : <span className="text-danger">{points}</span>
-                    </div>
-                </Col>
-            </Row>)
+            resultHead = ('')
             return { ...prevState, result, resultHead };
         }
 
         if (nextProps.data.plan) {
-            const { plan: { packs, periods, durations, name } } = nextProps.data;
-            return { ...prevState, packs, periods, durations, name };
+            console.log("get derived")
+            const { plan: { packs, periods, durations, name,points } } = nextProps.data;
+            return { ...prevState, packs, periods, durations, name,points };
         }
         return prevState;
     }
 
     inputChangeHandler = (e, name) => {
         
-        this.setState({ [name]: e.target.value });
+         //this.setState({ [name]: e.target.value });
+        if(name=="pack" && e.target.value == 1){
+            let periods = this.state.periods.filter(item=>item.id === 6);
+            let selectedPack = "$"+this.state.packs[e.target.value-1].name;
 
-        console.log(name, e.target.value)
+            this.setState({newPeriods:periods})
+            this.setState({selectedPack})
+
+        }
+        if(name=="pack" && e.target.value == 2){
+             let periods = this.state.periods.filter(item=>item.id >= 5);
+             let selectedPack = "$"+this.state.packs[e.target.value-1].name;
+
+             this.setState({newPeriods:periods})
+             this.setState({selectedPack})
+         }
+         if(name=="pack" && e.target.value == 3){
+             let periods = this.state.periods.filter(item=>item.id >= 4);
+             let selectedPack = "$"+this.state.packs[e.target.value-1].name;
+
+             this.setState({newPeriods:periods})
+             this.setState({selectedPack})
+         }
+         if(name=="pack" && e.target.value == 4){
+             let periods = this.state.periods.filter(item=>item.id >= 3);
+             let selectedPack = "$"+this.state.packs[e.target.value-1].name;
+
+             this.setState({newPeriods:periods})
+             this.setState({selectedPack})
+         }
+         if(name=="pack" && e.target.value == 5){
+             let periods = this.state.periods.filter(item=>item.id >= 2);
+             let selectedPack = "$"+this.state.packs[e.target.value-1].name;
+
+             this.setState({newPeriods:periods})
+             this.setState({selectedPack})
+         }
+         if(name=="pack" && e.target.value >= 6){
+             let periods = this.state.periods.filter(item=>item.id >= 1);
+             let selectedPack = "$"+this.state.packs[e.target.value-1].name;
+
+             this.setState({newPeriods:periods})
+             this.setState({selectedPack})
+         }
+         if(name=="duration"){
+             let selectedDuration = this.state.durations[e.target.value-1].name
+             this.setState({selectedDuration})
+         }
+         if(name=="period"){
+
+            let selectedPeriod = this.state.periods[e.target.value-1].name;
+            console.log(e.target.value-6+1)
+            this.setState({selectedPeriod})
+        }
+
+
+
+
 
     }
 
@@ -110,33 +155,47 @@ class CalculationPage extends Component {
         const { page } = this.state;
         if (page <= 1) return;
         this.setState({ page: this.state.page - 1 });
+        let pageFirst=this.state.pageFirst+1,
+        pageSecond=this.state.pageSecond-1,
+        pageLast=this.state.pageLast-1;
+    this.setState({pageFirst,pageSecond,pageLast});
     }
 
     nextPageHandler = () => {
         const { page, result } = this.state;
         if (page >= result.length / 8) return;
         this.setState({ page: this.state.page + 1 });
+        let pageFirst=this.state.pageFirst+1,
+        pageSecond=this.state.pageSecond+1,
+        pageLast=this.state.pageLast+1;
+    this.setState({pageFirst,pageSecond,pageLast});
     }
 
     firstPageHandler = () => {
         const { page } = this.state;
         if (page <= 1) return;
         this.setState({ page: 1 });
+        let pageFirst=1,pageSecond=2,pageLast=3
+        this.setState({pageFirst,pageSecond,pageLast});
     }
 
     lastPageHandler = () => {
         const { page, result } = this.state;
         if (page >= result.length / 8) return;
         this.setState({ page: Math.ceil(result.length / 8) });
+        let pageFirst=(result.length/8)-2,pageSecond=(result.length/8)-1,pageLast=(result.length/8)
+        this.setState({pageFirst,pageSecond,pageLast});
     }
 
     pageChangeHandler = page => {
         this.setState({ page });
+       
     }
 
     render() {
+       console.log("Render "+this.state.periods)
         //console.log(result.length)
-        let { page, packs, periods, durations } = this.state;
+        let { page, packs, newPeriods, durations,points,name } = this.state;
         let result = [];
         // if( this.props.simulation.leftPacksPerWeek){
         //             let WeeksArray = this.props.simulation.leftPacksPerWeek;
@@ -146,7 +205,7 @@ class CalculationPage extends Component {
         let resultHead = []
         if (this.state.result.length > 0) result = this.state.result.filter((r, i) => (i >= (page - 1) * 8) && (i < page * 8));
         packs = packs.map(({ id, name }) => <option key={id} value={id}>{name}</option>);
-        periods = periods.map(({ id, name }) => <option key={id} value={id}>{name}</option>);
+        newPeriods = newPeriods.map(({ id, name }) => <option key={id} value={id}>{name}</option>);
         durations = durations.map(({ id, name }) => <option key={id} value={id}>{name}</option>);
 
         return (
@@ -182,7 +241,7 @@ class CalculationPage extends Component {
                                             </InputGroupAddon>
                                             <Input name="period" onChange={(e) => this.inputChangeHandler(e, "period")} type="select" required style={{ height: '65px' }} className="text-light bg-dark border-0 ">
                                                 <option value={null}>Select Reinvestment type</option>
-                                                {periods}
+                                                {newPeriods}
                                             </Input>
                                         </InputGroup>
                                     </Col>
@@ -209,12 +268,36 @@ class CalculationPage extends Component {
                     <Col xs={1}><div className="ml-4  paye-v-line float-left"></div></Col>
                     <Col xs={8} className="h-100">
 
-                        {result.length > 0 ?
+                       
                             <div className="h-100 d-flex flex-column overflow-hidden">
                                 <div style={{ fontFamily: 'Bahnschrift' }} className="bg-white rounded-lg  pt-4 pb-3 mb-3">
-                                    {this.state.resultHead}
+                                <Row className="justify-content-between text-left">
+                <Col xs={3} className="ml-4 ">
+                    <h4>{name} 🥇 </h4>
+                    <h6>Code: CERT8085E</h6>
+                </Col>
+                <Col xs={4}>
+                    <Row>
+                        <Col className="mb-1" xs={12}>
+                            <FontAwesomeIcon color="#F5A10E" icon={faBox} /> Your selected package: {this.state.selectedPack}
+                        </Col>
+                        <Col xs={12}>
+                            <FontAwesomeIcon color="#F5A10E" icon={faCalendar} /> Duration Selected : {this.state.selectedDuration} 
+                        </Col>
+                    </Row>
+                </Col>
+                <Col className="mb-3" xs={{ size: 4 }} >
+                    <div>
+                        <FontAwesomeIcon icon={faList} color="#F5A10E" /> Reinvestment Type : {this.state.selectedPeriod}
+                    </div>
+
+                    <div>
+                        <FontAwesomeIcon icon={faClock} color="#F5A10E" /> Calculation Left : <span className="text-danger">{points}</span>
+                    </div>
+                </Col>
+            </Row>
                                 </div>
-                                <div className="flex-fill bg-white overflow-hidden d-flex flex-column rounded-lg px-5 pt-3">
+                                {result.length > 0 ? <div className="flex-fill bg-white overflow-hidden d-flex flex-column rounded-lg px-5 pt-3">
                                     <div className="flex-fill" style={{ overflowY: 'auto' }}>
                                         <Row style={{ transform: 'scale(.8)', transformOrigin: 'center', margin: '-5% -10% -5% -10%' }}>
                                             {result}
@@ -224,25 +307,22 @@ class CalculationPage extends Component {
                                         <Col className="text-left mt-4" xs={10}>
                                             <h5 className=" float-left">Balance after {this.props.simulation.leftPacksPerWeek.length < (8 * this.state.page) ? this.props.simulation.leftPacksPerWeek[this.props.simulation.leftPacksPerWeek.length - 1].week : this.props.simulation.leftPacksPerWeek[8 * this.state.page - 1].week} weeks of continuous investment : <span className=" text-success" >${this.props.simulation.leftPacksPerWeek.length < (8 * this.state.page) ? this.props.simulation.leftPacksPerWeek[this.props.simulation.leftPacksPerWeek.length - 1].balance.toFixed(2) : this.props.simulation.leftPacksPerWeek[8 * this.state.page - 1].balance.toFixed(2)}</span></h5>
                                         </Col>
-                                        <Col xs={{ size: 3, offset: 8 }}>
+                                        <Col xs={{ size: 3, offset: 6 }}>
                                             <nav className="float-end" aria-label="Page navigation example">
                                                 <ul className="pagination">
-                                                    <li className="bg-warning page-item" onClick={this.firstPageHandler}><a className="bg-warning text-light page-link d-inline-flex align-items-end"><FontAwesomeIcon icon={faChevronLeft} /><FontAwesomeIcon icon={faChevronLeft} /><span className="ml-2">First</span></a></li>
-                                                    <li className="bg-warning page-item" onClick={this.previousPageHandler}><a className="bg-warning text-light page-link d-inline-flex align-items-end"><FontAwesomeIcon icon={faChevronLeft} /><span className="ml-2"></span></a></li>
-                                                    <li className="page-item border-0"><a style={{ backgroundColor: '#e9ecef', color: 'black' }} className=" page-link">1</a></li>
-                                                    <li className="page-item"><a style={{ backgroundColor: '#e9ecef' }} className="text-secondary page-link">2</a></li>
-                                                    <li className="page-item"><a style={{ backgroundColor: '#e9ecef' }} className="text-secondary page-link">3</a></li>
-                                                    <li className="bg-primary page-item" onClick={this.nextPageHandler}><a className="bg-primary text-light page-link d-inline-flex align-items-end"><FontAwesomeIcon icon={faChevronRight} /><span className="ml-2"></span></a></li>
+                                                    <li className="page-item" onClick={this.firstPageHandler}><a className="bg-warning text-light page-link d-inline-flex align-items-end"><FontAwesomeIcon icon={faChevronLeft} /><FontAwesomeIcon icon={faChevronLeft} /><span className="ml-2">First</span></a></li>
+        <li className="page-item" onClick={this.previousPageHandler}><a className="bg-warning text-light page-link d-inline-flex align-items-end"><span className="ml-2">|</span><FontAwesomeIcon icon={faChevronLeft} /><FontAwesomeIcon icon={faChevronLeft} /></a></li>
+                                                    <li className="page-item "><a style={{ backgroundColor: '#e9ecef', color: 'black' }} className=" page-link">{this.state.pageFirst}</a></li>
+                                                    <li className="page-item"><a style={{ backgroundColor: '#e9ecef' }} className="text-secondary page-link">{this.state.pageSecond}</a></li>
+                                                    <li className="page-item"><a style={{ backgroundColor: '#e9ecef' }} className="text-secondary page-link">{this.state.pageLast}</a></li>
+                                                    <li className=" page-item h-100" onClick={this.nextPageHandler}><a className="bg-primary text-light page-link d-inline-flex align-items-end"><FontAwesomeIcon icon={faChevronRight} /><FontAwesomeIcon icon={faChevronRight} /><span className="">|</span></a></li>
                                                     <li className="page-item" onClick={this.lastPageHandler}><a className="bg-primary text-light page-link d-inline-flex align-items-end"><span className="mr-2">Last</span><FontAwesomeIcon icon={faChevronRight} /></a></li>
                                                 </ul>
                                             </nav>
                                         </Col>
                                     </Row>
-                                </div>
+                                </div>: <h3 style={{ fontFamily: 'Bahnschrift' }} className="text-light mt-5 ">Your result will show in this area !</h3> }
                             </div>
-                            : <h3 style={{ fontFamily: 'Bahnschrift' }} className="text-light mt-5 ">Your result will show in this area !</h3>
-                        }
-
                     </Col>
                 </Row>
             </div>

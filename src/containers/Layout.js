@@ -12,6 +12,7 @@ import CalculationPage from './Pages/CalculationPage/CalculationPage';
 import Footer from '../components/Footer/Footer';
 import AppBar from '../components/AppBar/AppBar';
 
+
 class Layout extends Component {
     render() {
         return (

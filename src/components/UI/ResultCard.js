@@ -2,6 +2,8 @@ import React from 'react';
 import { Badge, Jumbotron, Col } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolder, faWallet, faCalendar } from '@fortawesome/free-solid-svg-icons'
+import Tooltips from './Tooltips';
+import PopUp from './PopUp';
 
 export default function ResultCard(props) {
     const invest = props.invest > 0;
@@ -17,7 +19,8 @@ export default function ResultCard(props) {
         <Col className="mt-3" xs={3}>
             <div style={{ backgroundColor: invest ? '#73EFC2' : '#EFECEC', fontFamily: 'Bahnschrift' }} className="h-100 text-left p-2 rounded-sm font-weight-lighter">
                 <div style={{ backgroundColor: invest ? '#05C945' : '#F5A10E' }} className="py-1 pl-3 text-left w-100 rounded-sm d-flex align-items-center font-weight-bold"><FontAwesomeIcon size="2x" icon={faCalendar} className="pr-3" />Week {props.week}</div>
-                <div className="pt-2 text-truncate"  >Total Payout: {props.payout.join(" + ")}</div>
+                <div style={{overflow:"hidden",maxWidth:"80%"}} className=" d-inline-flex pt-2 text-truncate"  >Total Payout: {props.payout.join(" + ")} </div>
+                <div className="d-inline-flex"><PopUp data={props.payout} bg={ invest ? '#73EFC2' : '#EFECEC'} /></div>
                 <div className="pt-2 text-truncate">Bal W{props.week}: <strong>${props.balPrevW.toFixed(2)} + <span style={{ color: '#039B54' }}>${props.totPayout}</span></strong></div>
                 <div className="pt-2">Total Bal: <strong>${props.totBal.toFixed(2)}</strong></div>
                 <div className="pt-2">Invest: <strong>{investText}</strong> </div>
